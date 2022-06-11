@@ -117,7 +117,10 @@ function rnorm_box_muller_single_variate() result(variate)
 ! return a standard normal variate
 real(kind=dp) :: variate
 real(kind=dp) :: u(2), factor, arg
-call random_number(u)
+do
+   call random_number(u)
+   if (u(1) > 0.0_dp) exit
+end do
 factor = sqrt(-2 * log(u(1)))
 arg = two_pi*u(2)
 variate = factor * cos(arg)
